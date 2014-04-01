@@ -1,0 +1,109 @@
+extends layout
+  
+block content
+  link(rel='stylesheet', href='/css/mobile.css')
+  body(class="mobile", ng-app, ng-controller="ChatController")
+    div(class="nav-bar") 
+      h1 Pomoc Support
+
+    div(class="chat-messages mobile-area")
+      p(class="help-text") <span class="welcome">Welcome to Pomoc!</span><br/>Start typing below to chat with us.
+      ul(class="media-list")
+        li(class="media", ng-repeat="item in chat_messages")
+          a(class="pull-left")
+            img(class="media-object img-rounded", src="http://bootflat.github.io/img/photo-1.jpg")
+          div(class="media-body")
+            h4(class="media-heading") {{ item.name }}
+            p(class="chat-message") {{ item.message }}
+
+    div(class="message-input")
+      form(class="input-group form-search", ng-submit="submit()")
+        input(id="message-box", type="text", class="form-control search-query", placeholder="Your Message Here", ng-model="input_message", autocomplete="off")
+        span(class="input-group-btn")
+          button(type="submit", class="btn btn-primary", data-type="last") Send
+
+    <!-- Modal -->
+    div(class="modal fade", id="myModal", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+      div(class="modal-dialog")
+        div(class="modal-content")
+          div(class="modal-header")
+            button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
+          div(class="modal-body")
+            h5 Welcome to Pomoc!
+            hr
+            div(class="form-group")
+              label(for="exampleInputPassword1") Enter your name to start
+              input(type="text", class="form-control", ng-model="user_name", placeholder="Your Name")
+          div(class="modal-footer")
+            button(type="button", class="btn btn-primary btn-block", ng-click="submitName()") Start
+          
+
+    script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js")
+    script(src="/socket.io/socket.io.js")
+    script(src="/una_js/una.js") 
+
+    script.
+      var room_id = 'test';      
+      var controller_id = '';
+
+      $(function() {
+        $('#myModal').modal();
+      });
+
+      function ChatController($scope) {
+        
+        $scope.chat_messages = [];
+        $scope.user_name = '';
+
+        function scrollToBottom() {
+          var height = _.reduce($('.chat-messages > *'), function(memo, item) {
+            return memo + $(item).height();
+          }, 0);
+          $('.chat-messages').animate({ scrollTop: height }, "slow");
+        }
+
+        $scope.submit = function(event) {
+          
+          var msg = $scope.input_message;
+
+          UnaController.sendToScreen('message', {
+            message: msg
+          });
+
+          $scope.chat_messages.push({
+            id: controller_id,
+            name: $scope.user_name,
+            message: msg
+          });
+
+          $scope.input_message = '';
+          scrollToBottom();
+        }
+
+        $scope.submitName = function() {
+          UnaController.register(room_id, { name: $scope.user_name }, function(res) {
+            if (res.success) {
+              console.log(res);
+              $('#myModal').modal('hide');
+            } else {
+              console.log('Registration failed');
+            }
+          });
+        }
+
+        UnaController.onScreenInput('message', function(res) {
+          // event_key: This string should correspond to the string passed in to the `sendToController` function from the Screen
+          // res.una: Una header
+          // res.una.user_data: The user data of the Screen sender
+          // res.una.id: Unique id of the sender
+          // res.payload: Payload object that was sent by the screen
+          console.log(res);
+          $scope.chat_messages.push({
+            id: res.una.id,
+            name: res.una.user_data.name,
+            message: res.payload.message
+          });
+          $scope.$apply();
+          scrollToBottom();
+        });
+      }
