@@ -7,7 +7,7 @@ block content
       h1 Pomoc Support
 
     div(class="chat-messages mobile-area")
-      p(class="help-text", ng-show="connected") <span class="welcome">Welcome to Pomoc, {{ user_name }}!</span><br/>Start typing below to chat with us.
+      p(class="help-text", ng-show="connected") <span class="welcome">Welcome to Pomoc, <strong>{{ user_name }}</strong>!</span><br/>Start typing below to chat with us.
       ul(class="media-list")
         li(class="media chat-message {{ getThumbnailSideForType(item.type) }}", ng-repeat="item in chat_messages")
           a(class="pull-left")
