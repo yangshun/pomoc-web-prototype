@@ -12,5 +12,9 @@ exports.dashboard = function(req, res){
 };
 
 exports.mobile = function(req, res){
-  res.render('mobile', { title: 'Mobile' });
+  res.render('mobile', { title: 'Pomoc' });
+};
+
+exports.login = function(req, res){
+  res.render('login', { title: 'Login' });
 };

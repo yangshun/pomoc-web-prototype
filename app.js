@@ -45,6 +45,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/login', routes.login);
 app.get('/dashboard', routes.dashboard);
 app.get('/mobile', routes.mobile);
 

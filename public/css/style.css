@@ -1,4 +1,4 @@
-body.example {
+body.gradient {
   background: radial-gradient(circle at center, #25a9db, #0e5069);
 }
 .iphone {
@@ -19,4 +19,41 @@ body.example {
   left: 50%;
   margin-left: -158px;
   top: 138px;
+}
+.login-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  text-align: center;
+  width: 320px;
+}
+.login-container .logo {
+  width: 240px;
+}
+.login-container .login-group {
+  margin-top: 40px;
+}
+.login-container button,
+.login-container input {
+  border-radius: 0;
+  font-weight: 300;
+}
+.login-container input {
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 20px 10px;
+}
+.login-container ::-webkit-input-placeholder {
+  color: #fff;
+}
+.login-container :-moz-placeholder /* Firefox 18- */ {
+  color: #fff;
+}
+.login-container ::-moz-placeholder /* Firefox 19+ */ {
+  color: #fff;
+}
+.login-container :-ms-input-placeholder {
+  color: #fff;
 }

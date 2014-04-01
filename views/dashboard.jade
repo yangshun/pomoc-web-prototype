@@ -4,6 +4,11 @@ block content
   link(rel='stylesheet', href='/css/dashboard.css')
   link(rel="stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
   body(class="dashboard", ng-app, ng-controller="DashboardController")
+    script.
+      if (!localStorage['login']) {
+        window.location = '/login';
+      }
+
     div(class="page-container")
       div(class="row")
         div(class="main-col menu-col")
@@ -22,6 +27,9 @@ block content
           div(class="menu-item")
             i(class="fa fa-trash-o")
             h3 Trash
+          div(class="menu-item")
+            i(class="fa fa-sign-out", ng-click="logout()")
+            h3 Logout
 
         div(class="main-col chats-col")
           ul(class="media-list")
@@ -68,7 +76,6 @@ block content
       var ADMIN_NAME = 'Yang Shun';
       var screen_data = { name: ADMIN_NAME };
       
-
       UnaScreen.register(room_id, screen_data, function(res) {
         if (res.success) {
           // Screen registered successfully
@@ -199,6 +206,11 @@ block content
           $scope.chats[$scope.selectedChatIndex].chat_messages.push(msg_obj);
           $scope.input_message = '';
           scrollToBottom();
+        }
+
+        $scope.logout = function() {
+          localStorage['login'] = false;
+          window.location = '/login';
         }
       }
 

@@ -1,6 +1,6 @@
 @import variables
 
-body.example 
+body.gradient 
   background: radial-gradient(circle at center,#25a9db,#0e5069);
 
 
@@ -21,3 +21,36 @@ body.example
     left: 50%;
     margin-left: -158px;
     top: 138px;
+
+.login-container
+  margin: 0 auto
+  margin-top: 50px
+  text-align: center
+  width: 320px
+  .logo
+    width: 240px
+  .login-group
+    margin-top: 40px
+  button, input
+    border-radius: 0
+    font-weight: 300
+
+  input
+    background-color: transparent
+    border: 2px solid #fff
+    color: #fff
+    font-size: 16px    
+    margin-bottom: 20px
+    padding: 20px 10px
+
+  ::-webkit-input-placeholder
+    color: $placeholder
+
+  :-moz-placeholder /* Firefox 18- */
+    color: $placeholder
+
+  ::-moz-placeholder /* Firefox 19+ */
+    color: $placeholder  
+
+  :-ms-input-placeholder
+    color: $placeholder

@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  body.gradient
+    div(class="container")
+      div(class="login-container")
+        div
+          img(class="logo", src="img/logo.png")
+        div
+          img(class="logo", src="img/logo-text.png")
+        form(class="login-group", submit="submit()")
+          input(type="text", class="form-control", placeholder="Email")
+          input(type="password", id="password" class="form-control", placeholder="Password")
+          button(type="submit", class="btn btn-primary btn-lg btn-block", onclick="submit()") Login
+
+  script.
+    function submit(e) {
+      e.preventDefault();
+      if ($('#password').val() === 'pomoclogin') {
+        localStorage['login'] = true;
+        window.location = '/dashboard';
+      } else {
+        alert('Wrong user or password entered');
+      }
+    }
+    $('form').on('submit', submit);
