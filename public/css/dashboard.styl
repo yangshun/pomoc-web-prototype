@@ -41,13 +41,15 @@ body, html
         .fa
           color: $lightGray
           font-size: 2.5em
-          &:hover
-            color: $pomocBlue 
         h2, h3
           color: $gray
           font-size: 12px
           font-weight: 300
           margin-top: 5px
+        &:hover
+          .fa, h3
+            color: $pomocBlue
+
 
     .chats-col
       border-right: 1px solid $gray
@@ -58,4 +60,39 @@ body, html
     .chat-messages-col
       position: relative
       width: 52%
+      .screenshot-btn
+        background-color: transparent
+        border: 1px solid #fff
+        height: 36px
+        margin: 4px
+        padding: 5px
+        position: absolute
+        right: 0
+        top: 0
+        width: 36px
+        &:hover
+          border-color: $pomocDarkBlue
+          color: $pomocDarkBlue
 
+    .no-convo
+      color: $gray
+      font-size: 16px
+      font-weight: 300
+      padding-top: 100px
+      text-align: center
+      .fa
+        font-size: 10em
+
+    .carousel
+      -moz-box-shadow:    0 0 15px 0 $darkestGray
+      -webkit-box-shadow: 0 0 15px 0 $darkestGray
+      box-shadow:         0 0 15px 0 $darkestGray
+      margin: 0 auto
+      width: 320px
+      .fa
+        position: absolute
+        top: 50%
+      .fa-chevron-left
+        left: 10px
+      .fa-chevron-right
+        right: 10px

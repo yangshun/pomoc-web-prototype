@@ -1,5 +1,5 @@
 .nav-bar {
-  background-color: #43bbe8;
+  background-color: #00b9ff;
   height: 44px;
   position: absolute;
   text-align: center;
@@ -36,16 +36,6 @@
 }
 .chat-messages .help-text .welcome {
   font-weight: 500;
-}
-.chat-messages .no-convo {
-  color: #999;
-  font-size: 16px;
-  font-weight: 300;
-  padding-top: 100px;
-  text-align: center;
-}
-.chat-messages .no-convo .fa {
-  font-size: 10em;
 }
 .media {
   margin-top: 5px;

@@ -32,7 +32,11 @@ block content
             h3 Logout
 
         div(class="main-col chats-col")
-          ul(class="media-list")
+          div(class="no-convo", ng-show="selectedChatIndex === undefined")
+            p 
+              i(class="fa fa-users")
+            p There are no active conversations
+          ul(class="media-list", ng-show="selectedChatIndex >= 0")
             li(class="media chat-item", ng-repeat="chat in chats", ng-click="selectChat($index)")
               a(class="pull-left")
                 img(class="media-object img-rounded", ng-src="{{ getThumbnailImageForType('user') }}")
@@ -45,10 +49,11 @@ block content
         div(class="main-col chat-messages-col")
           div(class="nav-bar") 
             h1 {{ chats[selectedChatIndex].name }}
+            button(class="btn screenshot-btn", ng-click="showScreenshotsModal()")
+              i(class="fa fa-mobile fa-2x")
 
           div(class="chat-messages")
-            
-            div(class="no-convo" ng-show="chats[selectedChatIndex].chat_messages.length == 0")
+            div(class="no-convo" ng-show="chats[selectedChatIndex].chat_messages.length == 0 || selectedChatIndex === undefined")
               p 
                 i(class="fa fa-comments")
               p There are no conversations to display
@@ -60,11 +65,51 @@ block content
                 div(class="media-body")
                   h4(class="media-heading") {{ item.name }}
                   p(class="chat-message") {{ item.message }}
+
           div(class="message-input")
             form(class="input-group form-search", ng-submit="submit()")
               input(id="message-box", type="text", class="form-control search-query", placeholder="Your Message Here", ng-model="input_message", autocomplete="off")
               span(class="input-group-btn")
                 button(type="submit", class="btn btn-primary", data-type="last") Send
+
+      div(class="modal fade", id="screenshots-modal")
+        div(class="modal-dialog")
+          div(class="modal-content")
+            div(class="modal-header")
+              button(type="button", class="close", data-dismiss="modal", aria-hidden="true") ×
+              h4(class="modal-title") Screenshots
+            div(class="modal-body")
+              p These are the last 5 screenshots taken for <strong>{{ chats[selectedChatIndex].name }}</strong>.
+              div(class="row")
+                div(id="carousel-example-generic", class="carousel slide", data-ride="carousel")
+                  <!-- Indicators -->
+                  ol(class="carousel-indicators")
+                    li(data-target="#carousel-example-generic", data-slide-to="0", class="active")
+                    li(data-target="#carousel-example-generic", data-slide-to="1")
+                    li(data-target="#carousel-example-generic", data-slide-to="2")
+                    li(data-target="#carousel-example-generic", data-slide-to="3")
+                    li(data-target="#carousel-example-generic", data-slide-to="4")
+
+                  <!-- Wrapper for slides -->
+                  div(class="carousel-inner screenshots")
+                    div(class="item active")
+                      img(src="/img/ss-1.png")
+                    div(class="item")
+                      img(src="/img/ss-2.png")
+                    div(class="item")
+                      img(src="/img/ss-3.png")
+                    div(class="item")
+                      img(src="/img/ss-4.png")
+                    div(class="item")
+                      img(src="/img/ss-5.png")
+                  <!-- Controls -->
+                  a(class="left carousel-control", href="#carousel-example-generic", data-slide="prev")
+                    span(class="fa fa-chevron-left")
+                  a(class="right carousel-control", href="#carousel-example-generic", data-slide="next")
+                    span(class="fa fa-chevron-right")
+
+            div(class="modal-footer")
+              button(type="button", class="btn btn-primary", data-dismiss="modal") Done
 
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js")
     script(src="/socket.io/socket.io.js")
@@ -211,6 +256,10 @@ block content
         $scope.logout = function() {
           localStorage['login'] = false;
           window.location = '/login';
+        }
+
+        $scope.showScreenshotsModal = function() {
+          $('#screenshots-modal').modal();
         }
       }
 
