@@ -132,6 +132,11 @@ html {
 .dashboard .page-container .chats-col .existing-chats {
   border-bottom: 1px solid #999;
 }
+.dashboard .page-container .chats-col .media-list {
+  height: 100%;
+  margin: 0;
+  overflow-y: scroll;
+}
 .dashboard .page-container .chat-messages-col {
   position: relative;
   width: 52%;
