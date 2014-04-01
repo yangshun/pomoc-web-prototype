@@ -75,6 +75,9 @@ html {
   position: relative;
   width: 100%;
 }
+.mobile .modal .modal-body {
+  padding: 10px 15px;
+}
 .mobile .modal .modal-body h5 {
   text-align: center;
 }

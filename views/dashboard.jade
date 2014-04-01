@@ -5,7 +5,7 @@ block content
   link(rel="stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
   body(class="dashboard", ng-app, ng-controller="DashboardController")
     script.
-      if (!localStorage['login']) {
+      if (localStorage['login'] !== "true") {
         window.location = '/login';
       }
 
@@ -44,7 +44,7 @@ block content
                 h4(class="media-heading") {{ chat.name }}
                 p(class="chat-message", ng-show="chat.chat_messages.length == 0") No chat history to display
                 p(class="chat-message", ng-show="chat.chat_messages.length > 0") {{ chat.chat_messages[chat.chat_messages.length-1].message }}
-                  span(class="badge pull-right", ng-show="chat.unread_count > 0") {{ chat.unread_count }}
+                  span(class="badge badge-warning pull-right", ng-show="chat.unread_count > 0") {{ chat.unread_count }}
 
         div(class="main-col chat-messages-col")
           div(class="nav-bar") 

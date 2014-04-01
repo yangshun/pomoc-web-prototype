@@ -3,7 +3,7 @@ extends layout
 block content
   body.gradient
     script.
-      if (localStorage['login']) {
+      if (localStorage['login'] === "true") {
         window.location = '/dashboard';
       }
 

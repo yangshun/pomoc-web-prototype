@@ -7,7 +7,7 @@ block content
       h1 Pomoc Support
 
     div(class="chat-messages mobile-area")
-      p(class="help-text") <span class="welcome">Welcome to Pomoc!</span><br/>Start typing below to chat with us.
+      p(class="help-text", ng-show="connected") <span class="welcome">Welcome to Pomoc, {{ user_name }}!</span><br/>Start typing below to chat with us.
       ul(class="media-list")
         li(class="media chat-message {{ getThumbnailSideForType(item.type) }}", ng-repeat="item in chat_messages")
           a(class="pull-left")
@@ -23,11 +23,9 @@ block content
           button(type="submit", class="btn btn-primary", data-type="last") Send
 
     <!-- Modal -->
-    div(class="modal fade", id="myModal", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    div(class="modal fade", id="myModal", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true", data-backdrop="static" data-keyboard="false")
       div(class="modal-dialog")
         form(class="modal-content", ng-submit="submitName()")
-          div(class="modal-header")
-            button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
           div(class="modal-body")
             h5 Welcome to Pomoc!
             hr
@@ -53,6 +51,7 @@ block content
         
         $scope.chat_messages = [];
         $scope.user_name = '';
+        $scope.connected = false;
 
         function scrollToBottom(fast) {
           if (fast) {
@@ -86,13 +85,18 @@ block content
           scrollToBottom();
         }
 
+        $('#myModal').on('hidden.bs.modal', function(e) {
+          $scope.connected = true;
+          $scope.$apply();
+        })
+
         $scope.submitName = function() {
           UnaController.register(room_id, { name: $scope.user_name }, function(res) {
             if (res.success) {
               console.log(res);
               $('#myModal').modal('hide');
             } else {
-              console.log('Registration failed');
+              alert('Unable to connect. Please try again later.');
             }
           });
         }
@@ -116,10 +120,6 @@ block content
               return 'right-side';
           }
         }
-
-        //- $(function() {
-        //-   $scope.submitName();
-        //- });
 
         UnaController.onScreenInput('message', function(res) {
           // event_key: This string should correspond to the string passed in to the `sendToController` function from the Screen
