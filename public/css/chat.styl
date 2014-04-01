@@ -12,6 +12,12 @@
     line-height: 44px
     margin: 0
 
+.media.chat-item
+  border-bottom: 1px solid $gray
+  padding: 10px
+  .badge
+    margin-right: 10px
+
 .chat-messages
   height: calc(100% - 88px)
   overflow-y: scroll
@@ -27,15 +33,32 @@
     text-align: center
     .welcome
       font-weight: 500
+  .no-convo
+    color: $gray
+    font-size: 16px
+    font-weight: 300
+    padding-top: 100px
+    text-align: center
+    .fa
+      font-size: 10em
+    
 
-  .media
-    margin-top: 5px
-    padding: 5px
-    .media-object
-      border-radius: 32px
-      width: 48px
-    .chat-message
-      font-weight: 300
+.media
+  margin-top: 5px
+  padding: 5px
+  .media-object
+    border-radius: 32px
+    width: 48px
+  .chat-message
+    font-weight: 300
+
+.media.right-side
+  .pull-left
+    float: right !important
+    margin-right: 0
+    margin-left: 10px
+  .media-body
+    text-align: right
 
 .message-input
   background-color: $lightGray

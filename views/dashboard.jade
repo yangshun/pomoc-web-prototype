@@ -2,23 +2,53 @@ extends layout
   
 block content 
   link(rel='stylesheet', href='/css/dashboard.css')
+  link(rel="stylesheet", href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
   body(class="dashboard", ng-app, ng-controller="DashboardController")
     div(class="page-container")
       div(class="row")
         div(class="col-md-1 main-col menu-col")
+          div(class="menu-item menu-thumbnail")
+            img(class="media-object img-rounded", src="/img/shun.jpg")
+            h2 Yang Shun
+          div(class="menu-item")
+            i(class="fa fa-comments")
+            h3 Chats
+          div(class="menu-item")
+            i(class="fa fa-bookmark-o")
+            h3 Bookmarks
+          div(class="menu-item")
+            i(class="fa fa-tags")
+            h3 Issues
+          div(class="menu-item")
+            i(class="fa fa-trash-o")
+            h3 Trash
+
         div(class="col-md-4 main-col chats-col")
-          div(class="existing-chats" ng-repeat="chat in chats", ng-click="selectChat($index)") 
-            h3 {{ chat.name }}
+          ul(class="media-list")
+            li(class="media chat-item", ng-repeat="chat in chats", ng-click="selectChat($index)")
+              a(class="pull-left")
+                img(class="media-object img-rounded", ng-src="{{ getThumbnailImageForType('user') }}")
+              div(class="media-body")
+                h4(class="media-heading") {{ chat.name }}
+                p(class="chat-message", ng-show="chat.chat_messages.length == 0") No chat history to display
+                p(class="chat-message", ng-show="chat.chat_messages.length > 0") {{ chat.chat_messages[chat.chat_messages.length-1].message }}
+                  span(class="badge badge-danger pull-right", ng-show="chat.unread_count > 0") {{ chat.unread_count }}
 
         div(class="col-md-7 main-col chat-messages-col")
           div(class="nav-bar") 
             h1 {{ chats[selectedChatIndex].name }}
 
-          div(class="chat-messages") 
-            ul(class="media-list")
-              li(class="media", ng-repeat="item in chats[selectedChatIndex].chat_messages")
+          div(class="chat-messages")
+            
+            div(class="no-convo" ng-show="chats[selectedChatIndex].chat_messages.length == 0")
+              p 
+                i(class="fa fa-comments")
+              p There are no conversations to display
+
+            ul(class="media-list", ng-show="chats[selectedChatIndex].chat_messages.length > 0")
+              li(class="media {{ getThumbnailSideForType(item.type) }}", ng-repeat="item in chats[selectedChatIndex].chat_messages")
                 a(class="pull-left")
-                  img(class="media-object img-rounded", src="http://bootflat.github.io/img/photo-1.jpg")
+                  img(class="media-object img-rounded", ng-src="{{ getThumbnailImageForType(item.type) }}")
                 div(class="media-body")
                   h4(class="media-heading") {{ item.name }}
                   p(class="chat-message") {{ item.message }}
@@ -64,7 +94,8 @@ block content
           $scope.chats.push({ 
             id: id, 
             name: name, 
-            chat_messages: []
+            chat_messages: [],
+            unread_count: 0
           });
           if ($scope.chats.length === 1) {
             $scope.selectedChatIndex = 0;
@@ -75,13 +106,17 @@ block content
           $scope.$apply();
         }
 
-        function appendNewMessage(id, name, message) {
+        function appendNewMessage(id, name, message, type) {
           for (var i = 0; i < $scope.chats.length; i++) {
             if (id === $scope.chats[i].id) {
               $scope.chats[i].chat_messages.push({ 
                 name: name, 
-                message: message 
+                message: message,
+                type: 'user'
               });
+              if ($scope.selectedChatIndex !== i) {
+                $scope.chats[i].unread_count++;
+              }
               setTimeout(function() {
                 scrollToBottom();
               }, 0)
@@ -122,6 +157,30 @@ block content
 
         $scope.selectChat = function(index) {
           $scope.selectedChatIndex = index;
+          $scope.chats[index].unread_count = 0;
+          setTimeout(function() {
+            scrollToBottom(true);
+          }, 0);
+        }
+
+        $scope.getThumbnailImageForType = function(type) {
+          switch(type) {
+            case 'admin':
+              return '/img/shun.jpg';
+            case 'user':
+            default:
+              return '/img/chuck.jpg'
+          }
+        }
+
+        $scope.getThumbnailSideForType = function(type) {
+          switch(type) {
+            case 'admin':
+              return 'right-side';
+            case 'user':
+            default:
+              return 'left-side';
+          }
         }
 
         $scope.submit = function(event) {
@@ -129,7 +188,8 @@ block content
           var msg = $scope.input_message;
           var msg_obj = {
             name: ADMIN_NAME,
-            message: msg
+            message: msg,
+            type: 'admin'
           };
           console.log('sid:', $scope.chats[$scope.selectedChatIndex].id);
           UnaScreen.sendToController($scope.chats[$scope.selectedChatIndex].id, 'message', msg_obj);

@@ -17,6 +17,33 @@ body, html
       padding: 0
     .menu-col
       background-color: $darkestGray
+      .menu-item
+        cursor: pointer
+        height: 80px
+        margin: 10px 0
+        padding-left: 10px
+        text-align: center
+        &.menu-thumbnail
+          margin: 30px auto
+          text-align: center
+          img
+            border: 2px solid $pomocBlue
+            border-radius: 100px
+            display: inline-block
+            width: 60%
+          h2
+            font-weight: 500
+        .fa
+          color: $lightGray
+          font-size: 3em
+          &:hover
+            color: $pomocBlue 
+        h2, h3
+          color: $gray
+          font-size: 12px
+          font-weight: 300
+          margin-top: 5px
+
     .chats-col
       border-right: 1px solid $gray
       .existing-chats

@@ -9,9 +9,9 @@ block content
     div(class="chat-messages mobile-area")
       p(class="help-text") <span class="welcome">Welcome to Pomoc!</span><br/>Start typing below to chat with us.
       ul(class="media-list")
-        li(class="media", ng-repeat="item in chat_messages")
+        li(class="media chat-message {{ getThumbnailSideForType(item.type) }}", ng-repeat="item in chat_messages")
           a(class="pull-left")
-            img(class="media-object img-rounded", src="http://bootflat.github.io/img/photo-1.jpg")
+            img(class="media-object img-rounded", ng-src="{{ getThumbnailImageForType(item.type) }}")
           div(class="media-body")
             h4(class="media-heading") {{ item.name }}
             p(class="chat-message") {{ item.message }}
@@ -32,7 +32,7 @@ block content
             h5 Welcome to Pomoc!
             hr
             div(class="form-group")
-              label(for="exampleInputPassword1") Enter your name to start
+              label(class="modal-label") Enter your name to start
               input(type="text", class="form-control", ng-model="user_name", placeholder="Your Name")
           div(class="modal-footer")
             button(type="button", class="btn btn-primary btn-block", ng-click="submitName()") Start
@@ -55,11 +55,15 @@ block content
         $scope.chat_messages = [];
         $scope.user_name = '';
 
-        function scrollToBottom() {
-          var height = _.reduce($('.chat-messages > *'), function(memo, item) {
-            return memo + $(item).height();
-          }, 0);
-          $('.chat-messages').animate({ scrollTop: height }, "slow");
+        function scrollToBottom(fast) {
+          if (fast) {
+            $('.chat-messages').scrollTop(999999);
+          } else {
+            var height = _.reduce($('.chat-messages > *'), function(memo, item) {
+              return memo + $(item).height();
+            }, 0);
+            $('.chat-messages').animate({ scrollTop: height }, "slow");
+          }
         }
 
         $scope.submit = function(event) {
@@ -73,7 +77,8 @@ block content
           $scope.chat_messages.push({
             id: controller_id,
             name: $scope.user_name,
-            message: msg
+            message: msg,
+            type: 'user'
           });
 
           $scope.input_message = '';
@@ -91,6 +96,30 @@ block content
           });
         }
 
+        $scope.getThumbnailImageForType = function(type) {
+          switch(type) {
+            case 'admin':
+              return '/img/shun.jpg';
+            case 'user':
+            default:
+              return '/img/chuck.jpg'
+          }
+        }
+
+        $scope.getThumbnailSideForType = function(type) {
+          switch(type) {
+            case 'admin':
+              return 'left-side';
+            case 'user':
+            default:
+              return 'right-side';
+          }
+        }
+
+        //- $(function() {
+        //-   $scope.submitName();
+        //- });
+
         UnaController.onScreenInput('message', function(res) {
           // event_key: This string should correspond to the string passed in to the `sendToController` function from the Screen
           // res.una: Una header
@@ -101,7 +130,8 @@ block content
           $scope.chat_messages.push({
             id: res.una.id,
             name: res.una.user_data.name,
-            message: res.payload.message
+            message: res.payload.message,
+            type: 'admin'
           });
           $scope.$apply();
           scrollToBottom();
