@@ -110,7 +110,8 @@ block content
 
             div(class="modal-footer")
               button(type="button", class="btn btn-primary", data-dismiss="modal") Done
-
+    audio(src="/audio/ding.mp3")
+              
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js")
     script(src="/socket.io/socket.io.js")
     script(src='/una_js/una.js')
@@ -120,7 +121,7 @@ block content
       var ADMIN_ID = 'admin';
       var ADMIN_NAME = 'Yang Shun';
       var screen_data = { name: ADMIN_NAME };
-      
+
       UnaScreen.register(room_id, screen_data, function(res) {
         if (res.success) {
           // Screen registered successfully
@@ -195,6 +196,7 @@ block content
           // res.payload: Payload object that was sent by the controller
           console.log(res.una.user_data, res.una.id, res.payload);
           appendNewMessage(res.una.id, res.una.user_data.name, res.payload.message);
+          playDing();
           $scope.$apply();
         });
 

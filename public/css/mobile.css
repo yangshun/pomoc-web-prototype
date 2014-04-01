@@ -78,7 +78,11 @@ html {
 .mobile .modal .modal-body h5 {
   text-align: center;
 }
+.mobile .modal .modal-body .form-group {
+  margin-bottom: 0;
+}
 .mobile .modal .modal-footer {
+  margin-top: 0;
   padding: 19px 15px 20px;
 }
 .mobile .modal.in .modal-dialog {

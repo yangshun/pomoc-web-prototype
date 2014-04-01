@@ -25,7 +25,7 @@ block content
     <!-- Modal -->
     div(class="modal fade", id="myModal", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
       div(class="modal-dialog")
-        div(class="modal-content")
+        form(class="modal-content", ng-submit="submitName()")
           div(class="modal-header")
             button(type="button", class="close", data-dismiss="modal", aria-hidden="true") &times;
           div(class="modal-body")
@@ -35,8 +35,7 @@ block content
               label(class="modal-label") Enter your name to start
               input(type="text", class="form-control", ng-model="user_name", placeholder="Your Name")
           div(class="modal-footer")
-            button(type="button", class="btn btn-primary btn-block", ng-click="submitName()") Start
-          
+            button(type="submit", class="btn btn-primary btn-block", ng-click="submitName()") Start
 
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js")
     script(src="/socket.io/socket.io.js")
@@ -135,6 +134,7 @@ block content
             message: res.payload.message,
             type: 'admin'
           });
+          playDing();
           $scope.$apply();
           scrollToBottom();
         });
