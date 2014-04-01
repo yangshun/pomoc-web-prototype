@@ -1,0 +1,136 @@
+.nav-bar {
+  background-color: #43bbe8;
+  height: 44px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+}
+.nav-bar h1 {
+  color: #fff;
+  font-size: 16px;
+  line-height: 44px;
+  margin: 0;
+}
+.media.chat-item {
+  border-bottom: 1px solid #999;
+  padding: 10px;
+}
+.media.chat-item .badge {
+  margin-right: 10px;
+}
+.chat-messages {
+  height: calc(100% - 88px);
+  overflow-y: scroll;
+  padding: 5px;
+  position: absolute;
+  top: 44px;
+  width: 100%;
+}
+.chat-messages .help-text {
+  color: #999;
+  font-size: 12px;
+  font-weight: 300;
+  margin: 10px 0;
+  text-align: center;
+}
+.chat-messages .help-text .welcome {
+  font-weight: 500;
+}
+.chat-messages .no-convo {
+  color: #999;
+  font-size: 16px;
+  font-weight: 300;
+  padding-top: 100px;
+  text-align: center;
+}
+.chat-messages .no-convo .fa {
+  font-size: 10em;
+}
+.media {
+  margin-top: 5px;
+  padding: 5px;
+}
+.media .media-object {
+  border-radius: 32px;
+  width: 48px;
+}
+.media .chat-message {
+  font-weight: 300;
+}
+.media.right-side .pull-left {
+  float: right !important;
+  margin-right: 0;
+  margin-left: 10px;
+}
+.media.right-side .media-body {
+  text-align: right;
+}
+.message-input {
+  background-color: #ccc;
+  border-top: 1px solid #999;
+  bottom: 0;
+  padding: 5px;
+  position: absolute;
+  width: auto;
+}
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+.dashboard .page-container {
+  height: 100%;
+  padding-right: 15px;
+  width: 100%;
+}
+.dashboard .page-container .row {
+  height: 100%;
+}
+.dashboard .page-container .main-col {
+  height: 100%;
+  padding: 0;
+}
+.dashboard .page-container .menu-col {
+  background-color: #333;
+}
+.dashboard .page-container .menu-col .menu-item {
+  cursor: pointer;
+  height: 80px;
+  margin: 10px 0;
+  padding-left: 10px;
+  text-align: center;
+}
+.dashboard .page-container .menu-col .menu-item.menu-thumbnail {
+  margin: 30px auto;
+  text-align: center;
+}
+.dashboard .page-container .menu-col .menu-item.menu-thumbnail img {
+  border: 2px solid #43bbe8;
+  border-radius: 100px;
+  display: inline-block;
+  width: 60%;
+}
+.dashboard .page-container .menu-col .menu-item.menu-thumbnail h2 {
+  font-weight: 500;
+}
+.dashboard .page-container .menu-col .menu-item .fa {
+  color: #ccc;
+  font-size: 3em;
+}
+.dashboard .page-container .menu-col .menu-item .fa:hover {
+  color: #43bbe8;
+}
+.dashboard .page-container .menu-col .menu-item h2,
+.dashboard .page-container .menu-col .menu-item h3 {
+  color: #999;
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 5px;
+}
+.dashboard .page-container .chats-col {
+  border-right: 1px solid #999;
+}
+.dashboard .page-container .chats-col .existing-chats {
+  border-bottom: 1px solid #999;
+}

@@ -1,0 +1,52 @@
+.nav-bar {
+  background-color: $pomocBlue;
+  border-bottom: 1px solid #ccc;
+  height: 44px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: auto;
+}
+.nav-bar h1 {
+  color: #fff;
+  font-size: 16px;
+  line-height: 44px;
+  margin: 0;
+}
+.chat-messages {
+  height: calc(100% - 88px);
+  overflow-y: scroll;
+  padding: 5px;
+  position: absolute;
+  top: 44px;
+  width: auto;
+}
+.chat-messages .help-text {
+  color: $gray;
+  font-size: 12px;
+  font-weight: 300;
+  margin: 10px 0;
+  text-align: center;
+}
+.chat-messages .help-text .welcome {
+  font-weight: 500;
+}
+.chat-messages .media {
+  margin-top: 5px;
+  padding: 5px;
+}
+.chat-messages .media .media-object {
+  border-radius: 32px;
+  width: 48px;
+}
+.chat-messages .media .chat-message {
+  font-weight: 300;
+}
+.message-input {
+  background-color: $lightGray;
+  border-top: 1px solid #ccc;
+  bottom: 0;
+  padding: 5px;
+  position: absolute;
+  width: auto;
+}
