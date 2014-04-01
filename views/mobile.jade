@@ -33,7 +33,8 @@ block content
               label(class="modal-label") Enter your name to start
               input(type="text", class="form-control", ng-model="user_name", placeholder="Your Name")
           div(class="modal-footer")
-            button(type="submit", class="btn btn-primary btn-block", ng-click="submitName()") Start
+            img(ng-show="loading", src="/img/loading.gif" width="36")
+            button(type="submit", class="btn btn-primary btn-block", ng-click="submitName()", ng-show="!loading") Start
 
     script(src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js")
     script(src="/socket.io/socket.io.js")
@@ -52,6 +53,7 @@ block content
         $scope.chat_messages = [];
         $scope.user_name = '';
         $scope.connected = false;
+        $scope.loading = false;
 
         function scrollToBottom(fast) {
           if (fast) {
@@ -87,16 +89,20 @@ block content
 
         $('#myModal').on('hidden.bs.modal', function(e) {
           $scope.connected = true;
+          $scope.loading = false;
           $scope.$apply();
         })
 
         $scope.submitName = function() {
+          $scope.loading = true;
           UnaController.register(room_id, { name: $scope.user_name }, function(res) {
             if (res.success) {
               console.log(res);
               $('#myModal').modal('hide');
             } else {
               alert('Unable to connect. Please try again later.');
+              $scope.loading = false;
+              $scope.$apply();
             }
           });
         }

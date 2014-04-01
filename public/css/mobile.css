@@ -85,7 +85,8 @@ html {
 }
 .mobile .modal .modal-footer {
   margin-top: 0;
-  padding: 19px 15px 20px;
+  padding: 10px 15px 20px;
+  text-align: center;
 }
 .mobile .modal.in .modal-dialog {
   -webkit-transform: translate(0, 120px);
