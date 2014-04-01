@@ -79,6 +79,9 @@ html {
   height: 100%;
   width: 100%;
 }
+.dashboard {
+  min-width: 1024px;
+}
 .dashboard .page-container {
   height: 100%;
   padding-right: 15px;
@@ -88,11 +91,14 @@ html {
   height: 100%;
 }
 .dashboard .page-container .main-col {
+  display: inline-block;
+  float: left;
   height: 100%;
   padding: 0;
 }
 .dashboard .page-container .menu-col {
   background-color: #333;
+  width: 8%;
 }
 .dashboard .page-container .menu-col .menu-item {
   cursor: pointer;
@@ -116,7 +122,7 @@ html {
 }
 .dashboard .page-container .menu-col .menu-item .fa {
   color: #ccc;
-  font-size: 3em;
+  font-size: 2.5em;
 }
 .dashboard .page-container .menu-col .menu-item .fa:hover {
   color: #43bbe8;
@@ -130,7 +136,12 @@ html {
 }
 .dashboard .page-container .chats-col {
   border-right: 1px solid #999;
+  width: 40%;
 }
 .dashboard .page-container .chats-col .existing-chats {
   border-bottom: 1px solid #999;
+}
+.dashboard .page-container .chat-messages-col {
+  position: relative;
+  width: 52%;
 }

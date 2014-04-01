@@ -68,8 +68,10 @@ block content
 
         $scope.submit = function(event) {
           
-          var msg = $scope.input_message;
-
+          var msg = $.trim($scope.input_message);
+          if (!msg) {
+            return;
+          }
           UnaController.sendToScreen('message', {
             message: msg
           });
